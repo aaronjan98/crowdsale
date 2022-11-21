@@ -17,10 +17,6 @@ describe('Crowdsale', () => {
   })
 
   describe('Deployment', () => {
-    it('has correct name', async () => {
-      expect(await crowdsale.name()).to.eq('Crowdsale')
-    })
-
     it('returns token address', async () => {
       expect(await crowdsale.token()).to.eq(token.address)
     })

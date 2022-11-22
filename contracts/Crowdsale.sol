@@ -6,6 +6,7 @@ import './Token.sol';
 contract Crowdsale {
     Token public token;
     uint256 public price;
+    uint256 public tokensSold;
 
     event Buy(uint256 amount, address buyer);
 
@@ -18,6 +19,8 @@ contract Crowdsale {
         require(msg.value == (_amount / 1e18) * price);
         require(token.balanceOf(address(this)) >= _amount);
         require(token.transfer(msg.sender, _amount));
+
+        tokensSold += _amount;
 
         emit Buy(_amount, msg.sender);
     }

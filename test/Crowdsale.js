@@ -71,8 +71,11 @@ describe('Crowdsale', () => {
         )
       })
 
+      it('updates tokensSold', async () => {
+        expect(await crowdsale.tokensSold()).to.eq(amount)
+      })
+
       it('emits a buy event', async () => {
-        console.log(result)
         await expect(transaction)
           .to.emit(crowdsale, 'Buy')
           .withArgs(amount, user1.address)

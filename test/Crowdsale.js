@@ -17,7 +17,7 @@ describe('Crowdsale', () => {
     const Token = await ethers.getContractFactory('Token')
 
     // Deploy Token
-    token = await Token.deploy('Jan Token', 'PHI', '1000000')
+    token = await Token.deploy('Jan Token', 'JAN', '1000000')
 
     // Configure Accounts
     accounts = await ethers.getSigners()
@@ -98,6 +98,27 @@ describe('Crowdsale', () => {
           crowdsale.connect(user1).buyTokens(tokens(1), { value: 1 })
         ).to.be.reverted
       })
+    })
+  })
+
+  describe('Sending ETH', () => {
+    let transaction, result
+    let amount = ether(10)
+
+    beforeEach(async () => {
+      transaction = await user1.sendTransaction({
+        to: crowdsale.address,
+        value: amount,
+      })
+      result = await transaction.wait()
+    })
+
+    it('updates contracts ether balance', async () => {
+      expect(await ethers.provider.getBalance(crowdsale.address)).to.eq(amount)
+    })
+
+    it('updates user token balance', async () => {
+      expect(await token.balanceOf(user1.address)).to.eq(amount)
     })
   })
 })

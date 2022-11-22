@@ -35,7 +35,6 @@ contract Crowdsale {
     }
 
     function finalize() public {
-        // Send Ether to crowdsale creator
-        // Send remaining tokens to crowdsale creator
+        require(token.transfer(owner, token.balanceOf(address(this))));
     }
 }

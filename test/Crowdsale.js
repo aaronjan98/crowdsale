@@ -25,7 +25,7 @@ describe('Crowdsale', () => {
     user1 = accounts[1]
 
     // Deploy Crowdsale
-    crowdsale = await Crowdsale.deploy(token.address, ether(1))
+    crowdsale = await Crowdsale.deploy(token.address, ether(1), '1000000')
 
     // Send Tokens to Crowdsale
     let transaction = await token
@@ -45,6 +45,10 @@ describe('Crowdsale', () => {
 
     it('returns token address', async () => {
       expect(await crowdsale.token()).to.eq(token.address)
+    })
+
+    it('returns maxTokens', async () => {
+      expect(await crowdsale.maxTokens()).to.eq('1000000')
     })
   })
 

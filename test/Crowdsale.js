@@ -158,6 +158,10 @@ describe('Crowdsale', () => {
       })
     })
 
-    describe('Failure', async () => {})
+    describe('Failure', async () => {
+      it('prevents non-owner from finalizing', async () => {
+        await expect(crowdsale.connect(user1).finalize()).to.be.reverted
+      })
+    })
   })
 })

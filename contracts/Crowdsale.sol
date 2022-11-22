@@ -36,6 +36,7 @@ contract Crowdsale {
     }
 
     function finalize() public {
+        require(msg.sender == owner);
         require(token.transfer(owner, token.balanceOf(address(this))));
 
         uint256 value = address(this).balance;

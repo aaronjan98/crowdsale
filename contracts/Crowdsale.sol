@@ -36,5 +36,9 @@ contract Crowdsale {
 
     function finalize() public {
         require(token.transfer(owner, token.balanceOf(address(this))));
+
+        uint256 value = address(this).balance;
+        (bool sent, ) = owner.call{ value: value }('');
+        require(sent);
     }
 }

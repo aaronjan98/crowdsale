@@ -146,6 +146,10 @@ describe('Crowdsale', () => {
         expect(await token.balanceOf(crowdsale.address)).to.eq(0)
         expect(await token.balanceOf(deployer.address)).to.eq(tokens(999990))
       })
+
+      it('transfers ETH balance to owner', async () => {
+        expect(await ethers.provider.getBalance(crowdsale.address)).to.eq(0)
+      })
     })
 
     describe('Failure', async () => {})

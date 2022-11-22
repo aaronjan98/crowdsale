@@ -150,6 +150,12 @@ describe('Crowdsale', () => {
       it('transfers ETH balance to owner', async () => {
         expect(await ethers.provider.getBalance(crowdsale.address)).to.eq(0)
       })
+
+      it('emits Finalize event', async () => {
+        await expect(transaction)
+          .to.emit(crowdsale, 'Finalize')
+          .withArgs(amount, value)
+      })
     })
 
     describe('Failure', async () => {})

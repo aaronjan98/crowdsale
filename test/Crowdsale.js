@@ -39,6 +39,10 @@ describe('Crowdsale', () => {
       expect(await token.balanceOf(crowdsale.address)).to.eq(tokens(1000000))
     })
 
+    it('returns the owner', async () => {
+      expect(await crowdsale.owner()).to.eq(deployer.address)
+    })
+
     it('returns the price', async () => {
       expect(await crowdsale.price()).to.eq(ether(1))
     })

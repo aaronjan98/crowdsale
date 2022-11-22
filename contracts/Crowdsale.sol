@@ -4,6 +4,7 @@ pragma solidity ^0.8.17;
 import './Token.sol';
 
 contract Crowdsale {
+    address public owner;
     Token public token;
     uint256 public price;
     uint256 public maxTokens;
@@ -12,6 +13,7 @@ contract Crowdsale {
     event Buy(uint256 amount, address buyer);
 
     constructor(Token _token, uint256 _price, uint256 _maxTokens) {
+        owner = msg.sender;
         token = _token;
         price = _price;
         maxTokens = _maxTokens;
@@ -30,5 +32,10 @@ contract Crowdsale {
         tokensSold += _amount;
 
         emit Buy(_amount, msg.sender);
+    }
+
+    function finalize() public {
+        // Send Ether to crowdsale creator
+        // Send remaining tokens to crowdsale creator
     }
 }

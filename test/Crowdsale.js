@@ -70,6 +70,27 @@ describe('Crowdsale', () => {
           amount
         )
       })
+
+      it('emits a buy event', async () => {
+        console.log(result)
+        await expect(transaction)
+          .to.emit(crowdsale, 'Buy')
+          .withArgs(amount, user1.address)
+      })
+    })
+
+    describe('Failure', async () => {
+      it('rejects insufficient ETH', async () => {
+        await expect(
+          crowdsale.connect(user1).buyTokens(tokens(10), { value: 0 })
+        ).to.be.reverted
+      })
+      // TODO: make buyTokens fxn fail
+      it('rejects if token amount requested is larger than supply', async () => {
+        await expect(
+          crowdsale.connect(user1).buyTokens(tokens(1), { value: 1 })
+        ).to.be.reverted
+      })
     })
   })
 })

@@ -40,6 +40,10 @@ contract Crowdsale {
         emit Buy(_amount, msg.sender);
     }
 
+    function setPrice(uint256 _price) public onlyOwner {
+        price = _price;
+    }
+
     function finalize() public onlyOwner {
         require(token.transfer(owner, token.balanceOf(address(this))));
 

@@ -96,10 +96,10 @@ describe('Crowdsale', () => {
           crowdsale.connect(user1).buyTokens(tokens(10), { value: 0 })
         ).to.be.reverted
       })
-      // TODO: make buyTokens fxn fail
+
       it('rejects if token amount requested is larger than supply', async () => {
         await expect(
-          crowdsale.connect(user1).buyTokens(tokens(1), { value: 1 })
+          crowdsale.connect(user1).buyTokens(tokens(0.1), { value: ether(0.1) })
         ).to.be.reverted
       })
     })

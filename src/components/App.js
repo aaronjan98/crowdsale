@@ -13,8 +13,11 @@ import CROWDSALE_ABI from '../abis/Crowdsale.json'
 import config from '../config.json'
 
 function App() {
-  const [account, setAccount] = useState(null)
   const [provider, setProvider] = useState(null)
+  const [crowdsale, setCrowdsale] = useState(null)
+
+  const [account, setAccount] = useState(null)
+  const [accountBalance, setAccountBalance] = useState(0)
 
   const [isLoading, setIsLoading] = useState(true)
 
@@ -25,18 +28,30 @@ function App() {
 
     // Initiate contracts
     const token = new ethers.Contract(
-      config['1337'].token.address,
+      config[1337].token.address,
       TOKEN_ABI,
       provider
     )
-    console.log(token.address)
+    const crowdsale = new ethers.Contract(
+      config[1337].crowdsale.address,
+      CROWDSALE_ABI,
+      provider
+    )
+    setCrowdsale(crowdsale)
 
-    // Set account
+    // Fetch account
     const accounts = await window.ethereum.request({
       method: 'eth_requestAccounts',
     })
     const account = ethers.utils.getAddress(accounts[0])
     setAccount(account)
+
+    // Fetch account balance
+    const accountBalance = ethers.utils.formatUnits(
+      await token.balanceOf(account),
+      18
+    )
+    setAccountBalance(accountBalance)
 
     setIsLoading(false)
   }
@@ -51,7 +66,7 @@ function App() {
     <Container>
       <Navigation />
       <hr />
-      {account && <Info account={account} />}
+      {account && <Info account={account} accountBalance={accountBalance} />}
     </Container>
   )
 }

@@ -6,22 +6,44 @@ import { ethers } from 'ethers'
 import Navigation from './Navigation'
 import Info from './Info'
 
+// ABIs
+import TOKEN_ABI from '../abis/Token.json'
+import CROWDSALE_ABI from '../abis/Crowdsale.json'
+
 function App() {
   const [account, setAccount] = useState(null)
+  const [provider, setProvider] = useState(null)
+
+  const [isLoading, setIsLoading] = useState(true)
 
   const loadBlockchainData = async () => {
+    // Initiate provider
     const provider = new ethers.providers.Web3Provider(window.ethereum)
+    setProvider(provider)
 
+    // Initiate contracts
+    const token = new ethers.Contract(
+      '0x6adD25b4ad122EFf923dc671C37a1D33B36C5344',
+      TOKEN_ABI,
+      provider
+    )
+    console.log(token)
+
+    // Set account
     const accounts = await window.ethereum.request({
       method: 'eth_requestAccounts',
     })
     const account = ethers.utils.getAddress(accounts[0])
     setAccount(account)
+
+    setIsLoading(false)
   }
 
   useEffect(() => {
-    loadBlockchainData()
-  })
+    if (isLoading) {
+      loadBlockchainData()
+    }
+  }, [isLoading])
 
   return (
     <Container>

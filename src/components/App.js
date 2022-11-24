@@ -10,6 +10,8 @@ import Info from './Info'
 import TOKEN_ABI from '../abis/Token.json'
 import CROWDSALE_ABI from '../abis/Crowdsale.json'
 
+import config from '../config.json'
+
 function App() {
   const [account, setAccount] = useState(null)
   const [provider, setProvider] = useState(null)
@@ -23,11 +25,11 @@ function App() {
 
     // Initiate contracts
     const token = new ethers.Contract(
-      '0x6adD25b4ad122EFf923dc671C37a1D33B36C5344',
+      config['1337'].token.address,
       TOKEN_ABI,
       provider
     )
-    console.log(token)
+    console.log(token.address)
 
     // Set account
     const accounts = await window.ethereum.request({

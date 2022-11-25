@@ -19,6 +19,10 @@ function App() {
   const [account, setAccount] = useState(null)
   const [accountBalance, setAccountBalance] = useState(0)
 
+  const [price, setPrice] = useState(0)
+  const [maxPrice, setMaxPrice] = useState(0)
+  const [tokensSold, setTokensSold] = useState(0)
+
   const [isLoading, setIsLoading] = useState(true)
 
   const loadBlockchainData = async () => {
@@ -53,6 +57,21 @@ function App() {
     )
     setAccountBalance(accountBalance)
 
+    // Fetch max tokens
+    const price = ethers.utils.formatUnits(await crowdsale.price(), 18)
+    setPrice(price)
+
+    // Fetch max tokens
+    const maxTokens = ethers.utils.formatUnits(await crowdsale.maxTokens(), 18)
+    setMaxPrice(maxTokens)
+
+    // Fetch tokens sold
+    const tokensSold = ethers.utils.formatUnits(
+      await crowdsale.tokensSold(),
+      18
+    )
+    setTokensSold(tokensSold)
+
     setIsLoading(false)
   }
 
@@ -65,7 +84,17 @@ function App() {
   return (
     <Container>
       <Navigation />
+
+      {isLoading ? (
+        <p className="text-center">loading...</p>
+      ) : (
+        <p className="text-center">
+          <strong>Current Price:</strong> {price} ETH
+        </p>
+      )}
+
       <hr />
+
       {account && <Info account={account} accountBalance={accountBalance} />}
     </Container>
   )

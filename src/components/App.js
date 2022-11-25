@@ -5,6 +5,7 @@ import { ethers } from 'ethers'
 // Components
 import Navigation from './Navigation'
 import Info from './Info'
+import Loading from './Loading'
 
 // ABIs
 import TOKEN_ABI from '../abis/Token.json'
@@ -86,7 +87,7 @@ function App() {
       <Navigation />
 
       {isLoading ? (
-        <p className="text-center">loading...</p>
+        <Loading />
       ) : (
         <p className="text-center">
           <strong>Current Price:</strong> {price} ETH

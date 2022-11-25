@@ -5,6 +5,7 @@ import { ethers } from 'ethers'
 // Components
 import Navigation from './Navigation'
 import Info from './Info'
+import Progress from './Progress'
 import Loading from './Loading'
 
 // ABIs
@@ -86,6 +87,8 @@ function App() {
     <Container>
       <Navigation />
 
+      <h1 className="my-4 text-center">Introducing Jan Token!</h1>
+
       {isLoading ? (
         <Loading />
       ) : (
@@ -93,9 +96,7 @@ function App() {
           <p className="text-center">
             <strong>Current Price:</strong> {price} ETH
           </p>
-          <p className="text-center my-3">
-            {tokensSold} / {maxTokens} Tokens Sold
-          </p>
+          <Progress maxTokens={maxTokens} tokensSold={tokensSold} />
         </>
       )}
 

@@ -21,7 +21,7 @@ function App() {
   const [accountBalance, setAccountBalance] = useState(0)
 
   const [price, setPrice] = useState(0)
-  const [maxPrice, setMaxPrice] = useState(0)
+  const [maxTokens, setMaxTokens] = useState(0)
   const [tokensSold, setTokensSold] = useState(0)
 
   const [isLoading, setIsLoading] = useState(true)
@@ -64,7 +64,7 @@ function App() {
 
     // Fetch max tokens
     const maxTokens = ethers.utils.formatUnits(await crowdsale.maxTokens(), 18)
-    setMaxPrice(maxTokens)
+    setMaxTokens(maxTokens)
 
     // Fetch tokens sold
     const tokensSold = ethers.utils.formatUnits(
@@ -89,9 +89,14 @@ function App() {
       {isLoading ? (
         <Loading />
       ) : (
-        <p className="text-center">
-          <strong>Current Price:</strong> {price} ETH
-        </p>
+        <>
+          <p className="text-center">
+            <strong>Current Price:</strong> {price} ETH
+          </p>
+          <p className="text-center my-3">
+            {tokensSold} / {maxTokens} Tokens Sold
+          </p>
+        </>
       )}
 
       <hr />

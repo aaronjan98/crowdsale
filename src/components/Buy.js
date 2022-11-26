@@ -8,21 +8,28 @@ import { ethers } from 'ethers'
 
 const Buy = ({ provider, price, crowdsale, setIsLoading }) => {
   const [amount, setAmount] = useState(0)
+  const [isWaiting, setIsWaiting] = useState(false)
 
   const buyHandler = async e => {
     e.preventDefault()
-    console.log('buying tokens...', amount)
+    setIsWaiting(true)
 
-    const signer = await provider.getSigner()
+    try {
+      const signer = await provider.getSigner()
 
-    // need to calculate the required ETH in order to buy the tokens...
-    const value = ethers.utils.parseUnits((amount * price).toString(), 'ether')
-    const formattedAmount = ethers.utils.parseUnits(amount.toString(), 'ether')
+      // need to calculate the required ETH in order to buy the tokens...
+      const value = ethers.utils.parseEther((amount * price).toString())
+      const formattedAmount = ethers.utils.parseEther(amount.toString())
 
-    const transaction = await crowdsale
-      .connect(signer)
-      .buyTokens(formattedAmount, { value: value })
-    await transaction.wait()
+      const transaction = await crowdsale
+        .connect(signer)
+        .buyTokens(formattedAmount, { value: value })
+      await transaction.wait()
+    } catch {
+      window.alert('User rejected or transaction reverted')
+    }
+
+    setIsLoading(true)
   }
 
   return (
@@ -39,9 +46,13 @@ const Buy = ({ provider, price, crowdsale, setIsLoading }) => {
           />
         </Col>
         <Col className="text-center">
-          <Button variant="primary" type="submit" style={{ width: '100%' }}>
-            Buy Tokens
-          </Button>
+          {isWaiting ? (
+            <Spinner animation="border" />
+          ) : (
+            <Button variant="primary" type="submit" style={{ width: '100%' }}>
+              Buy Tokens
+            </Button>
+          )}
         </Col>
       </Form.Group>
     </Form>

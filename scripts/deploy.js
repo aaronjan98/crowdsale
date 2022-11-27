@@ -10,7 +10,7 @@ async function main() {
   const NAME = 'Jan Token'
   const SYMBOL = 'JAN'
   const MAX_SUPPLY = '1000000'
-  const PRICE = ethers.utils.parseUnits('0.025', 'ether')
+  const PRICE = ethers.utils.parseEther('0.025')
 
   // Deploy Token
   const Token = await hre.ethers.getContractFactory('Token')
@@ -24,7 +24,7 @@ async function main() {
   const crowdsale = await Crowdsale.deploy(
     token.address,
     PRICE,
-    ethers.utils.parseUnits(MAX_SUPPLY, 'ether')
+    ethers.utils.parseEther(MAX_SUPPLY)
   )
   await crowdsale.deployed()
 
@@ -33,7 +33,7 @@ async function main() {
   // Send tokens to Crowdsale
   const transaction = await token.transfer(
     crowdsale.address,
-    ethers.utils.parseUnits(MAX_SUPPLY, 'ether')
+    ethers.utils.parseEther(MAX_SUPPLY)
   )
   await transaction.wait()
 

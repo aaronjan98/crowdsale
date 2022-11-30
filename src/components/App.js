@@ -33,14 +33,16 @@ function App() {
     const provider = new ethers.providers.Web3Provider(window.ethereum)
     setProvider(provider)
 
+    const { chainId } = await provider.getNetwork()
+
     // Initiate contracts
     const token = new ethers.Contract(
-      config[1337].token.address,
+      config[chainId].token.address,
       TOKEN_ABI,
       provider
     )
     const crowdsale = new ethers.Contract(
-      config[1337].crowdsale.address,
+      config[chainId].crowdsale.address,
       CROWDSALE_ABI,
       provider
     )

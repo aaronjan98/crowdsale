@@ -6,5 +6,14 @@
     "crowdsale": {
       "address": "0x9DE80BdfAF4741D82E364C4Fb61b196728A8eD25"
     }
+  },
+  "5": {
+    "explorerURL": "https://goerli.etherscan.io/",
+    "token": {
+      "address": "0x7A2184BcEEAFF3A5f581DA0C1871EbbBCab164D5"
+    },
+    "crowdsale": {
+      "address": "0x0984420371a2976621Cd7f46281B7b43D318b0dD"
+    }
   }
 }

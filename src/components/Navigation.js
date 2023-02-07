@@ -1,17 +1,11 @@
 import Navbar from 'react-bootstrap/Navbar'
 
-import logo from '../logo.png'
+import { ReactComponent as Logo } from '../logo.svg'
 
 const Navigation = () => {
   return (
     <Navbar>
-      <img
-        alt="logo"
-        src={logo}
-        width="40"
-        height="40"
-        className="d-inline-block align-top mx-3"
-      />
+      <Logo alt="logo" className="d-inline-block align-top mx-3" />
       <Navbar.Brand href="#">Jan ICO Crowdsale</Navbar.Brand>
     </Navbar>
   )

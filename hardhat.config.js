@@ -8,7 +8,7 @@ module.exports = {
   solidity: '0.8.17',
   networks: {
     ganache: {
-      url: 'http://127.0.0.1:3333',
+      url: 'http://127.0.0.1:3334',
     },
     goerli: {
       url: `https://eth-goerli.g.alchemy.com/v2/${process.env.ALCHEMY_API_KEY}`,

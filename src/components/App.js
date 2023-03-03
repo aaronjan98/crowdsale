@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import Container from 'react-bootstrap/Container'
+import { Container, Card } from 'react-bootstrap'
 import { ethers } from 'ethers'
 
 // Components
@@ -116,7 +116,14 @@ function App() {
       <h1 className="my-4 text-center">Introducing Jan Token!</h1>
 
       {isLoading ? (
-        <Loading />
+        <Card style={{ width: '450px' }} className="mx-auto px-4">
+          <p
+            className="d-flex justify-content-center align-items-center"
+            style={{ height: '300px' }}
+          >
+            Please connect MetaMask wallet.
+          </p>
+        </Card>
       ) : (
         <>
           <p className="text-center">
@@ -129,12 +136,14 @@ function App() {
             setIsLoading={setIsLoading}
           />
           <Progress maxTokens={maxTokens} tokensSold={tokensSold} />
+
+          <hr />
+
+          {account && (
+            <Info account={account} accountBalance={accountBalance} />
+          )}
         </>
       )}
-
-      <hr />
-
-      {account && <Info account={account} accountBalance={accountBalance} />}
     </Container>
   )
 }

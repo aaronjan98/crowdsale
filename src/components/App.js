@@ -19,6 +19,7 @@ function App() {
   const [provider, setProvider] = useState(null)
   const [crowdsale, setCrowdsale] = useState(null)
 
+  const [chainId, setChainId] = useState(null)
   const [account, setAccount] = useState(null)
   const [accountBalance, setAccountBalance] = useState(0)
 
@@ -34,6 +35,28 @@ function App() {
     setProvider(provider)
 
     const { chainId } = await provider.getNetwork()
+
+    setChainId(chainId)
+
+    // Reload page when network changes
+    window.ethereum.on('chainChanged', async () => {
+      window.location.reload()
+      const accounts = await window.ethereum.request({
+        method: 'eth_requestAccounts',
+      })
+
+      const account = ethers.utils.getAddress(accounts[0])
+      setAccount(account)
+    })
+
+    // Fetch current account from Metamask when changed
+    window.ethereum.on('accountsChanged', async () => {
+      const accounts = await window.ethereum.request({
+        method: 'eth_requestAccounts',
+      })
+      const account = ethers.utils.getAddress(accounts[0])
+      setAccount(account)
+    })
 
     // Initiate contracts
     const token = new ethers.Contract(
@@ -88,7 +111,7 @@ function App() {
 
   return (
     <Container>
-      <Navigation />
+      <Navigation account={account} setAccount={setAccount} chainId={chainId} />
 
       <h1 className="my-4 text-center">Introducing Jan Token!</h1>
 

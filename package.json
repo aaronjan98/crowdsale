@@ -9,6 +9,7 @@
     "bootstrap": "^5.2.0",
     "dotenv": "^16.0.0",
     "react": "^18.2.0",
+    "react-blockies": "^1.4.1",
     "react-bootstrap": "^2.4.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
@@ -20,7 +21,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "ganache": "ganache-cli --chain.chainId 31339 -p 3334 -a 20 -e 10000 -m 'web excess blood script melody grape vast economy believe garbage mango inner'"
+    "ganache": "ganache --chain.chainId 31339 -p 3334 -a 20 -e 10000 -m 'web excess blood script melody grape vast economy believe garbage mango inner'"
   },
   "keywords": [],
   "author": "aaronjanovitch@gmail.com",

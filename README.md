@@ -55,10 +55,9 @@ npx hardhat test
 👤 **aaronjanovitch@gmail.com**
 
 - Website: [aaronjanovitch.com](https://aaronjanovitch.com)
-
-* Twitter: [@AJanovitch](https://twitter.com/AJanovitch)
-* Github: [@aaronjan98](https://github.com/aaronjan98)
-* LinkedIn: [@aaron-janovitch](https://linkedin.com/in/aaron-janovitch)
+- Twitter: [@AJanovitch](https://twitter.com/AJanovitch)
+- Github: [@aaronjan98](https://github.com/aaronjan98)
+- LinkedIn: [@aaron-janovitch](https://linkedin.com/in/aaron-janovitch)
 
 ## 🤝 Contributing
 
